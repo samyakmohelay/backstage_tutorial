@@ -128,15 +128,15 @@ spec:
 #     - bob
 #     - charlie
 
----
-apiVersion: backstage.io/v1alpha1
-kind: User
-metadata:
-  name: alice
-  description: Alice, lead developer in the Core Platform Team.
-spec:
-  profile:
-    displayName: Alice
-    email: alice@example.com
-  memberOf:
-    - team-core-platform
+# ---
+# apiVersion: backstage.io/v1alpha1
+# kind: User
+# metadata:
+#   name: alice
+#   description: Alice, lead developer in the Core Platform Team.
+# spec:
+#   profile:
+#     displayName: Alice
+#     email: alice@example.com
+#   memberOf:
+#     - team-core-platform
