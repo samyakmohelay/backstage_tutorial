@@ -1,8 +1,142 @@
+# catalog-info.yaml
+
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: "Backstage_Tutorial2"
+  name: my-service
+  description: |
+    A detailed description of my-service, including its purpose,
+    features, and key stakeholders. This service handles user 
+    authentication and profile management.
+  labels:
+    team: core-platform
+    system: user-management
+  annotations:
+    backstage.io/techdocs-ref: url:https://github.com/my-org/my-service
+    github.com/project-slug: my-org/my-service
 spec:
   type: service
-  owner: user:guest
-  lifecycle: experimental
+  lifecycle: production
+  owner: team-core-platform
+  providesApis:
+    - my-service-api
+  consumesApis:
+    - payment-service-api
+    - email-service-api
+  dependsOn:
+    - resource: mysql-database
+    - resource: redis-cache
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: my-service-api
+  description: |
+    API definition for my-service, supporting RESTful operations for 
+    user authentication and profile management.
+  annotations:
+    backstage.io/techdocs-ref: url:https://github.com/my-org/my-service/docs/api
+  labels:
+    team: core-platform
+spec:
+  type: openapi
+  lifecycle: production
+  owner: team-core-platform
+  definition:
+    $text: |
+      openapi: 3.0.0
+      info:
+        title: My Service API
+        version: 1.0.0
+      paths:
+        /users:
+          get:
+            summary: Get user details
+            responses:
+              200:
+                description: Successful response
+              404:
+                description: User not found
+        /auth:
+          post:
+            summary: Authenticate user
+            responses:
+              200:
+                description: Authenticated successfully
+              401:
+                description: Invalid credentials
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: user-management
+  description: |
+    User management system responsible for handling user accounts, 
+    authentication, and authorization services.
+  labels:
+    domain: core-services
+spec:
+  owner: team-core-platform
+  domain: core-services
+  lifecycle: production
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: mysql-database
+  description: Production MySQL database for user management.
+  labels:
+    environment: production
+spec:
+  type: database
+  owner: team-core-platform
+  system: user-management
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: redis-cache
+  description: |
+    Redis cache for session management and caching frequently accessed 
+    user data.
+  labels:
+    environment: production
+spec:
+  type: cache
+  owner: team-core-platform
+  system: user-management
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: team-core-platform
+  description: |
+    Core platform team responsible for developing and maintaining the 
+    user management system and related services.
+spec:
+  type: team
+  profile:
+    displayName: Core Platform Team
+    email: core-platform-team@example.com
+  members:
+    - alice
+    - bob
+    - charlie
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: alice
+  description: Alice, lead developer in the Core Platform Team.
+spec:
+  profile:
+    displayName: Alice
+    email: alice@example.com
+  memberOf:
+    - team-core-platform
