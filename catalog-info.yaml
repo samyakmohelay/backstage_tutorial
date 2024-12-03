@@ -68,6 +68,73 @@ spec:
 
 ---
 apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: email-service-api
+  description: |
+    API for managing email-related operations
+spec:
+  type: openapi
+  lifecycle: production
+  owner: team-core-platform
+  definition: |
+    openapi: 3.0.0
+    info:
+      title: Email Service API
+      version: 1.0.0
+    paths:
+      /send:
+        post:
+          summary: Send an email
+          responses:
+            200:
+              description: Email sent successfully
+            400:
+              description: Invalid request
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: payment-service-api
+  description: |
+    API for handling payment-related operations, including processing payments and managing transactions.
+spec:
+  type: openapi
+  lifecycle: production
+  owner: team-core-platform
+  definition: |
+    openapi: 3.0.0
+    info:
+      title: Payment Service API
+      version: 1.0.0
+    paths:
+      /payments:
+        post:
+          summary: Process a payment
+          responses:
+            200:
+              description: Payment processed successfully
+            400:
+              description: Invalid payment request
+      /transactions/{transactionId}:
+        get:
+          summary: Get transaction details
+          parameters:
+            - name: transactionId
+              in: path
+              required: true
+              schema:
+                type: string
+          responses:
+            200:
+              description: Transaction details
+            404:
+              description: Transaction not found
+
+
+---
+apiVersion: backstage.io/v1alpha1
 kind: System
 metadata:
   name: user-management
