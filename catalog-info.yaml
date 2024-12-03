@@ -43,29 +43,28 @@ spec:
   type: openapi
   lifecycle: production
   owner: team-core-platform
-  definition:
-    $text: |
-      openapi: 3.0.0
-      info:
-        title: My Service API
-        version: 1.0.0
-      paths:
-        /users:
-          get:
-            summary: Get user details
-            responses:
-              200:
-                description: Successful response
-              404:
-                description: User not found
-        /auth:
-          post:
-            summary: Authenticate user
-            responses:
-              200:
-                description: Authenticated successfully
-              401:
-                description: Invalid credentials
+  definition: |
+    openapi: 3.0.0
+    info:
+      title: My Service API
+      version: 1.0.0
+    paths:
+      /users:
+        get:
+          summary: Get user details
+          responses:
+            200:
+              description: Successful response
+            404:
+              description: User not found
+      /auth:
+        post:
+          summary: Authenticate user
+          responses:
+            200:
+              description: Authenticated successfully
+            401:
+              description: Invalid credentials
 
 ---
 apiVersion: backstage.io/v1alpha1
@@ -109,34 +108,3 @@ spec:
   type: cache
   owner: team-core-platform
   system: user-management
-
-# ---
-# apiVersion: backstage.io/v1alpha1
-# kind: Group
-# metadata:
-#   name: team-core-platform
-#   description: |
-#     Core platform team responsible for developing and maintaining the 
-#     user management system and related services.
-# spec:
-#   type: team
-#   profile:
-#     displayName: Core Platform Team
-#     email: core-platform-team@example.com
-#   members:
-#     - alice
-#     - bob
-#     - charlie
-
-# ---
-# apiVersion: backstage.io/v1alpha1
-# kind: User
-# metadata:
-#   name: alice
-#   description: Alice, lead developer in the Core Platform Team.
-# spec:
-#   profile:
-#     displayName: Alice
-#     email: alice@example.com
-#   memberOf:
-#     - team-core-platform
