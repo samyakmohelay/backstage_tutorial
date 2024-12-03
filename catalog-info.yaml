@@ -24,8 +24,8 @@ spec:
     - payment-service-api
     - email-service-api
   dependsOn:
-    - resource: mysql-database
-    - resource: redis-cache
+    - mysql-database
+    - redis-cache
 
 ---
 apiVersion: backstage.io/v1alpha1
