@@ -4,6 +4,10 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: my-service
+  links:
+    - url: https://dashboard.example.com
+      title: My Dashboard
+      icon: dashboard
   description: |
     A detailed description of my-service, including its purpose,
     features, and key stakeholders. This service handles user 
